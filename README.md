@@ -8,4 +8,4 @@
 
 ## Usage
 - run the program with `python main.py`
-- code written self explanatory in `main.py`
+- configure the program through `config.py`
