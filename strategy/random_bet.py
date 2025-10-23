@@ -26,12 +26,12 @@ def random_bet(start_sum: int,
         log(f"Cycle: {cycle_count}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
-            current_bet = random.randint(options["bet_range"][0], options["bet_range"][0])
+            current_bet = random.randint(options["bet_range"][0], options["bet_range"][1])
             current_sum += current_bet
             log(f"  Win -> current sum: {current_sum} (current bet={current_bet})", log_verbose)
         else:
             update_counters("lose", win_counters, lose_counters)
-            planned_bet: int = random.randint(options["bet_range"][0], options["bet_range"][0])
+            planned_bet: int = random.randint(options["bet_range"][0], options["bet_range"][1])
             current_bet: int = planned_bet if planned_bet < current_sum else current_sum
             current_sum -= current_bet
             log(f"  Lose -> current sum: {current_sum} (current bet={current_bet})", log_verbose)
