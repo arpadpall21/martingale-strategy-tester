@@ -15,6 +15,6 @@ strategy_config = {
         "run_till_win": True
     },
     "random": {
-        "bet_size": [1, 10]
+        "bet_range": [1, 10]
     }
 }

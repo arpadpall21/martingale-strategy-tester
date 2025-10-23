@@ -7,7 +7,7 @@ from typing import Any
 
 from misc.rand_success import check_success
 from misc.streak_counter import update_counters, Counters
-from misc.log import log
+from misc.log import log, log_strategy_header
 
 
 def martingale(start_sum: int,
@@ -15,10 +15,7 @@ def martingale(start_sum: int,
                cycles: int,
                log_verbose: bool,
                options: dict[str, Any] = {"run_till_win": False}) -> int:
-    log("Stragety Name: Martingale", log_verbose)
-    log(f"Start Sum: {start_sum}", log_verbose)
-    log(f"Success Chance Each Turn: {success_chance_percent_each_cycle}%", log_verbose)
-    log(f"Planned Cycles: {cycles}\n", log_verbose)
+    log_strategy_header("Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
     current_bet: int = 1
