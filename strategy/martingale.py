@@ -27,7 +27,7 @@ def martingale(start_sum: int,
     cycle_count: int = 1
     current_cycle_win: bool = False
 
-    while cycle_count <= 100 or (option.get("run_till_win") and not current_cycle_win):
+    while cycle_count <= cycles or (option.get("run_till_win") and not current_cycle_win):
         log(f"Cycle: {cycle_count}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)

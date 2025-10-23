@@ -2,7 +2,7 @@ from strategy import strategy
 
 start_sum = 10_000
 success_chance_percent_each_cycle = 47.4
-cycles: int = 100
+cycles: int = 10
 log_verbose: bool = True
 
 
