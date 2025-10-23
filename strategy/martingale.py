@@ -1,7 +1,13 @@
+"""
+    Standard martinage strategy:
+      - on win bet the initial bet
+      - on lose bet double that you recently lost
+"""
+
 from misc.rand_success import check_success
 
 
-def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: int) -> None:
+def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: int, exit_on_empty_balance: bool) -> int:
     print("Stragety Name: Martingale")
     print(f"Start Sum: {start_sum}")
     print(f"Success Chance Percent Each Turn: {success_chance_percent_each_cycle}")
@@ -16,15 +22,20 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
         print(f"Cycle: {cycle + 1}")
         if check_success(success_chance_percent_each_cycle):
             current_sum += current_bet
-            current_bet = 1
-
-            win_cycle_count += 1
             print(f"  Win -> current sum: {current_sum}")
-        else:
-            current_sum -= current_bet
-            current_bet = current_bet * 2
 
-            lose_cycle_count += 1
+            current_bet = 1
+            win_cycle_count += 1
+        else:
+            current_sum -= current_bet if current_bet <= current_sum else current_sum
             print(f"  Lose -> current sum: {current_sum}")
 
+            if exit_on_empty_balance and current_sum <= 0:
+                print(f"  You run out of cache -> current sum: {current_sum}")
+                return current_sum
+
+            current_bet = current_bet * 2
+            lose_cycle_count += 1
+
     print(f"\nEnd Sum: {current_sum} (win cycle count={win_cycle_count}) (lose cycle count={lose_cycle_count})")
+    return current_sum
