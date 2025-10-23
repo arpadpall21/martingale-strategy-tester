@@ -1,13 +1,14 @@
 from strategy import strategy
 
-start_sum = 1_000
-success_chance_percent_each_cycle = 50
+start_sum = 10
+success_chance_percent_each_cycle = 47.4
 cycles: int = 10
+log_verbose: bool = False
 
 
 def main():
     # call strategy here...
-    strategy.martingale(start_sum, success_chance_percent_each_cycle, cycles)
+    strategy.martingale(start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
 
 if __name__ == "__main__":

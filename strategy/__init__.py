@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from typing import Callable, Any
+from typing import Callable, Any,  Optional
 
 from strategy.martingale import martingale
 
-type StragetyFn = Callable[[int, int, int, dict[str, Any]], None]
+type StragetyFn = Callable[[int, int, int, bool, Optional[dict[str, Any]]], int]
 
 
 @dataclass
