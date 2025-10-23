@@ -12,7 +12,7 @@ from misc.log import log
 def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: int, log_verbose: bool) -> int:
     log("Stragety Name: Martingale", log_verbose)
     log(f"Start Sum: {start_sum}", log_verbose)
-    log(f"Success Chance Percent Each Turn: {success_chance_percent_each_cycle}", log_verbose)
+    log(f"Success Chance Each Turn: {success_chance_percent_each_cycle}%", log_verbose)
     log(f"Planned Cycles: {cycles}\n", log_verbose)
 
     current_sum: int = start_sum
@@ -25,13 +25,14 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
-            log(f"  Win -> current sum: {current_sum}", log_verbose)
+            log(f"  Win -> current sum: {current_sum} (current bet={current_bet}) (next bet={1})", log_verbose)
 
             current_bet = 1
         else:
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet if current_bet <= current_sum else current_sum
-            log(f"  Lose -> current sum: {current_sum}", log_verbose)
+            next_bet = current_bet * 2 if current_bet * 2 < current_sum else current_sum
+            log(f"  Lose -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
             if current_sum <= 0:
                 log(
@@ -42,7 +43,7 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
                 )
                 return current_sum
 
-            current_bet = current_bet * 2
+            current_bet = next_bet
 
     log(
         f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
