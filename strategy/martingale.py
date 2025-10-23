@@ -22,26 +22,25 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
     for cycle in range(cycles):
         print(f"Cycle: {cycle + 1}")
         if check_success(success_chance_percent_each_cycle):
-            update_counters(win_counters)
+            update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
-
-            current_bet = 1
             print(f"  Win -> current sum: {current_sum}")
 
+            current_bet = 1
         else:
-            update_counters(lose_counters)
+            update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet if current_bet <= current_sum else current_sum
+            print(f"  Lose -> current sum: {current_sum}")
 
             if exit_on_empty_balance and current_sum <= 0:
                 print(
-                    f"You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
+                    f"  You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
                     f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
                     f"(max lose streak count={lose_counters.max_streak})"
                 )
                 return current_sum
 
             current_bet = current_bet * 2
-            print(f"  Lose -> current sum: {current_sum}")
 
     print(
         f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
