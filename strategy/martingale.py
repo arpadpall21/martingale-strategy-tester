@@ -7,7 +7,7 @@ from typing import Any
 
 from misc.rand_success import check_success
 from misc.update_counters import update_counters, Counters
-from misc.log import log, log_strategy_header
+from misc.log import log, log_strategy_header, log_end_game
 
 
 def martingale(start_sum: int,
@@ -40,21 +40,12 @@ def martingale(start_sum: int,
             log(f"  Lose -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
             if current_sum <= 0:
-                log(
-                    f"You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
-                    f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
-                    f"(max lose streak count={lose_counters.max_streak})",
-                    True
-                )
+                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
                 return current_sum
 
             current_bet = next_bet
             current_cycle_win = False
         cycle_count += 1
 
-    log(
-        f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
-        f"(max win streak count={win_counters.max_streak}) (max lose streak count={lose_counters.max_streak})",
-        True
-    )
+    log_end_game("End Game", current_sum, win_counters, lose_counters, log_verbose)
     return current_sum
