@@ -19,9 +19,10 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
     current_bet: int = 1
     win_counters = Counters(0, 0, 0)
     lose_counters = Counters(0, 0, 0)
+    cycle_count: int = 1
 
-    for cycle in range(cycles):
-        log(f"Cycle: {cycle + 1}", log_verbose)
+    while cycle_count <= 100:
+        log(f"Cycle: {cycle_count}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
@@ -44,6 +45,7 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
                 return current_sum
 
             current_bet = next_bet
+        cycle_count += 1
 
     log(
         f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
