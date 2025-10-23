@@ -1,13 +1,15 @@
 """
-    Standard martingale strategy:
-      - on win bet the initial bet
-      - on lose bet double that you recently lost
+    Standard Martingale Strategy:
+        - On Win: 
+            - Bet the initial bet
+        - On Lose: 
+            - Bet double the amount you recently lost
 """
 from typing import Any
 
 from misc.rand_success import check_success
-from misc.streak_counter import update_counters, Counters
-from misc.log import log
+from misc.update_counters import update_counters, Counters
+from misc.log import log, log_strategy_header, log_end_game
 
 
 def martingale(start_sum: int,
@@ -15,10 +17,7 @@ def martingale(start_sum: int,
                cycles: int,
                log_verbose: bool,
                options: dict[str, Any] = {"run_till_win": False}) -> int:
-    log("Stragety Name: Martingale", log_verbose)
-    log(f"Start Sum: {start_sum}", log_verbose)
-    log(f"Success Chance Each Turn: {success_chance_percent_each_cycle}%", log_verbose)
-    log(f"Planned Cycles: {cycles}\n", log_verbose)
+    log_strategy_header("Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
     current_bet: int = 1
@@ -43,21 +42,12 @@ def martingale(start_sum: int,
             log(f"  Lose -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
             if current_sum <= 0:
-                log(
-                    f"You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
-                    f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
-                    f"(max lose streak count={lose_counters.max_streak})",
-                    True
-                )
+                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
                 return current_sum
 
             current_bet = next_bet
             current_cycle_win = False
         cycle_count += 1
 
-    log(
-        f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
-        f"(max win streak count={win_counters.max_streak}) (max lose streak count={lose_counters.max_streak})",
-        True
-    )
+    log_end_game("End Game", current_sum, win_counters, lose_counters, log_verbose)
     return current_sum
