@@ -6,7 +6,7 @@
 from typing import Any
 
 from misc.rand_success import check_success
-from misc.streak_counter import update_counters, Counters
+from misc.update_counters import update_counters, Counters
 from misc.log import log, log_strategy_header
 
 

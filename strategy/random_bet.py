@@ -6,8 +6,8 @@ from typing import Any
 import random
 
 from misc.rand_success import check_success
-from misc.streak_counter import update_counters, Counters
-from misc.log import log, log_strategy_header
+from misc.update_counters import update_counters, Counters
+from misc.log import log, log_strategy_header, log_end_game
 
 
 def random_bet(start_sum: int,
@@ -20,10 +20,9 @@ def random_bet(start_sum: int,
     current_sum: int = start_sum
     win_counters = Counters(0, 0, 0)
     lose_counters = Counters(0, 0, 0)
-    cycle_count: int = 1
 
     for cycle in range(cycles):
-        log(f"Cycle: {cycle_count}", log_verbose)
+        log(f"Cycle: {cycle + 1}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_bet = random.randint(options["bet_range"][0], options["bet_range"][1])
@@ -37,17 +36,8 @@ def random_bet(start_sum: int,
             log(f"  Lose -> current sum: {current_sum} (current bet={current_bet})", log_verbose)
 
             if current_sum <= 0:
-                log(
-                    f"You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
-                    f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
-                    f"(max lose streak count={lose_counters.max_streak})",
-                    True
-                )
+                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
                 return current_sum
 
-    log(
-        f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
-        f"(max win streak count={win_counters.max_streak}) (max lose streak count={lose_counters.max_streak})",
-        True
-    )
+    log_end_game("End Game", current_sum, win_counters, lose_counters, log_verbose)
     return current_sum
