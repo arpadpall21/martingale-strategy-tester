@@ -1,14 +1,25 @@
-from strategy import strategy
+from dataclasses import fields
+from typing import Any
 
-start_sum = 10
-success_chance_percent_each_cycle = 47.4
-cycles: int = 10
-log_verbose: bool = False
+from strategy import strategy, StragetyFn
+from config import use_strategy, base_config, strategy_config
 
 
 def main():
-    # call strategy here...
-    strategy.martingale(start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
+    try:
+        getattr(strategy, use_strategy)
+    except AttributeError:
+        print(
+            f"Strategy not supported: {use_strategy} " +
+            f"(suported strategies: {", ".join([field.name for field in fields(strategy)])})"
+        )
+        return
+
+    config: dict[str, Any] = base_config
+    config["options"] = strategy_config[use_strategy]
+
+    strategy_fn: StragetyFn = getattr(strategy, use_strategy)
+    strategy_fn(**config,)
 
 
 if __name__ == "__main__":
