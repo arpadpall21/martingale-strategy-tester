@@ -1,5 +1,5 @@
 """
-    Standard martingale strategy:
+    Standard Martingale Strategy:
       - on win bet the initial bet
       - on lose bet double that you recently lost
 """

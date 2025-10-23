@@ -1,5 +1,5 @@
-# strategy to use, (available: martingale)
-use_strategy = "martingale"
+# strategy to use, (available: martingale, reverse_martingale, random)
+use_strategy = "random"
 
 # base configurations
 base_config = {
@@ -13,5 +13,8 @@ base_config = {
 strategy_config = {
     "martingale": {
         "run_till_win": True
+    },
+    "random": {
+        "bet_size": [1, 10]
     }
 }
