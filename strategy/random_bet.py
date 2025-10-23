@@ -1,6 +1,7 @@
 """
     Random Strategy:
-      - betting randomly while randomly changing the bet size
+      - On Win or Lose
+          - Betting randomly while randomly changing the bet size
 """
 from typing import Any
 import random

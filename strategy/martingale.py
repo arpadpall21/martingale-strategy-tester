@@ -1,7 +1,9 @@
 """
     Standard Martingale Strategy:
-      - on win bet the initial bet
-      - on lose bet double that you recently lost
+        - On Win: 
+            - Bet the initial bet
+        - On Lose: 
+            - Bet double the amount you recently lost
 """
 from typing import Any
 
