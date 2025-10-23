@@ -6,13 +6,14 @@
 
 from misc.rand_success import check_success
 from misc.streak_counter import update_counters, Counters
+from misc.log import log
 
 
-def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: int, exit_on_empty_balance: bool) -> int:
-    print("Stragety Name: Martingale")
-    print(f"Start Sum: {start_sum}")
-    print(f"Success Chance Percent Each Turn: {success_chance_percent_each_cycle}")
-    print(f"Planned Cycles: {cycles}\n")
+def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: int, log_verbose: bool) -> int:
+    log("Stragety Name: Martingale", log_verbose)
+    log(f"Start Sum: {start_sum}", log_verbose)
+    log(f"Success Chance Percent Each Turn: {success_chance_percent_each_cycle}", log_verbose)
+    log(f"Planned Cycles: {cycles}\n", log_verbose)
 
     current_sum: int = start_sum
     current_bet: int = 1
@@ -20,30 +21,32 @@ def martingale(start_sum: int, success_chance_percent_each_cycle: int, cycles: i
     lose_counters = Counters(0, 0, 0)
 
     for cycle in range(cycles):
-        print(f"Cycle: {cycle + 1}")
+        log(f"Cycle: {cycle + 1}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
-            print(f"  Win -> current sum: {current_sum}")
+            log(f"  Win -> current sum: {current_sum}", log_verbose)
 
             current_bet = 1
         else:
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet if current_bet <= current_sum else current_sum
-            print(f"  Lose -> current sum: {current_sum}")
+            log(f"  Lose -> current sum: {current_sum}", log_verbose)
 
-            if exit_on_empty_balance and current_sum <= 0:
-                print(
-                    f"  You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
+            if current_sum <= 0:
+                log(
+                    f"You run out of cache -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
                     f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
-                    f"(max lose streak count={lose_counters.max_streak})"
+                    f"(max lose streak count={lose_counters.max_streak})",
+                    True
                 )
                 return current_sum
 
             current_bet = current_bet * 2
 
-    print(
+    log(
         f"End sum: {current_sum} (win cycle count={win_counters.cycle}) (lose cycle count={lose_counters.cycle}) " +
-        f"(max win streak count={win_counters.max_streak}) (max lose streak count={lose_counters.max_streak})"
+        f"(max win streak count={win_counters.max_streak}) (max lose streak count={lose_counters.max_streak})",
+        True
     )
     return current_sum
