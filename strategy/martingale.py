@@ -1,5 +1,5 @@
 """
-    Standard martinage strategy:
+    Standard martingale strategy:
       - on win bet the initial bet
       - on lose bet double that you recently lost
 """
@@ -14,7 +14,7 @@ def martingale(start_sum: int,
                success_chance_percent_each_cycle: int,
                cycles: int,
                log_verbose: bool,
-               option: dict[str, Any] = {"run_till_win": True}) -> int:
+               options: dict[str, Any] = {"run_till_win": False}) -> int:
     log("Stragety Name: Martingale", log_verbose)
     log(f"Start Sum: {start_sum}", log_verbose)
     log(f"Success Chance Each Turn: {success_chance_percent_each_cycle}%", log_verbose)
@@ -27,7 +27,7 @@ def martingale(start_sum: int,
     cycle_count: int = 1
     current_cycle_win: bool = False
 
-    while cycle_count <= cycles or (option.get("run_till_win") and not current_cycle_win):
+    while cycle_count <= cycles or (options.get("run_till_win") and not current_cycle_win):
         log(f"Cycle: {cycle_count}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)

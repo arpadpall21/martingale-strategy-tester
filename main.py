@@ -1,14 +1,10 @@
-from strategy import strategy
-
-start_sum = 10_000
-success_chance_percent_each_cycle = 47.4
-cycles: int = 10
-log_verbose: bool = True
+from strategy import strategy, StragetyFn
+from config import use_strategy, config
 
 
 def main():
-    # call strategy here...
-    strategy.martingale(start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
+    strategy_fn: StragetyFn = getattr(strategy, use_strategy)
+    strategy_fn(**config,)
 
 
 if __name__ == "__main__":
