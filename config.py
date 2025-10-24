@@ -1,5 +1,5 @@
 # strategy to use, (available: martingale, reverse_martingale, random_bet)
-use_strategy = ""
+use_strategy = "reverse_martingale"
 
 # base configurations
 base_config = {
