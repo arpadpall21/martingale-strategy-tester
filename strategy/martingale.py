@@ -41,7 +41,7 @@ def martingale(start_sum: int,
             log(f"  Lose -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
             if current_sum <= 0:
-                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
+                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, True)
                 return current_sum
 
             current_bet = next_bet
