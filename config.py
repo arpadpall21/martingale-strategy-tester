@@ -14,7 +14,10 @@ strategy_config = {
     "martingale": {
         "run_till_win": True
     },
+    "reverse_martingale": {
+        "target_sum_start_sum_percent": 5
+    },
     "random_bet": {
         "bet_range": [1, 3]
-    }
+    },
 }

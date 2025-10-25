@@ -16,7 +16,8 @@ def main():
         return
 
     config: dict[str, Any] = base_config
-    config["options"] = strategy_config[use_strategy]
+    if strategy_config.get(use_strategy):
+        config["options"] = strategy_config[use_strategy]
 
     strategy_fn: StragetyFn = getattr(strategy, use_strategy)
     strategy_fn(**config,)
