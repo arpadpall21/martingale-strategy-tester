@@ -28,3 +28,21 @@ def log_end_game(reason: str,
         f"(max lose streak count={lose_counters.max_streak})",
         log_verbose
     )
+
+
+def log_multi_game(base_config: dict[str, int | bool],
+                   multi_game_cycles: int,
+                   win_cycles: int,
+                   loss_cycles: int,
+                   balance: int,
+                   ):
+    initial_start_sum: int = base_config["start_sum"]
+    total_start_sum: int = initial_start_sum * multi_game_cycles
+
+    print(
+        f"Multi Game Report: (nr of games played={multi_game_cycles})"
+        f"(initial start sum={initial_start_sum}) (total start sum={total_start_sum})"
+        f"(win cycles={win_cycles}) (loss cycles={loss_cycles}) " +
+        f"(total sum at the end of games={balance}) (total net balance={balance - total_start_sum}) " +
+        f"(total balance ratio={round(balance / total_start_sum * 100, 1)}%)"
+    )
