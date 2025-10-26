@@ -3,6 +3,7 @@ from typing import Any
 
 from strategy import strategy, StragetyFn
 from config import use_strategy, base_config, strategy_config, multi_game_cycles
+from misc.log import log_multi_game
 
 
 def main():
@@ -33,15 +34,7 @@ def main():
             else:
                 loss_cycles += 1
                 balance -= result
-
-        print(balance)
-
-        # print(
-        #     f"(win_cycles={win_cycles}) (loss_cycles={loss_cycles}) " +
-        #     f"(start_sum={start_sum}) (sum_at_the_end_of_the_game={balance}) " +
-        #     f"(net_balance={balance - start_sum}) (balance_ratio={round(balance / start_sum * 100, 1)}%)"
-        # )
-        
+        log_multi_game(base_config, multi_game_cycles, win_cycles, loss_cycles, balance)
     else:
         strategy_fn(**config)
 
