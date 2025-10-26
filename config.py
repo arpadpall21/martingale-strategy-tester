@@ -21,3 +21,6 @@ strategy_config = {
         "bet_range": [1, 3]
     },
 }
+
+# runs this game nr of times (None | int)
+multi_game_cycles: int | None = None
