@@ -22,7 +22,7 @@ def main():
 
     if multi_game_cycles and multi_game_cycles > 0:
         pass
-    
+        print('__')
     else:
         strategy_fn(**config,)
 
