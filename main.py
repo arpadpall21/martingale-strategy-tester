@@ -21,37 +21,29 @@ def main():
         config["options"] = strategy_config[use_strategy]
 
     if multi_game_cycles and multi_game_cycles > 0:
-        pass
-        print('__')
+        win_cycles: int = 0
+        loss_cycles: int = 0
+        balance: int = 0
+
+        for game_id in range(multi_game_cycles):
+            result: float = strategy_fn(**config)
+            if result > 0:
+                win_cycles += 1
+                balance += result
+            else:
+                loss_cycles += 1
+                balance -= result
+
+        print(balance)
+
+        # print(
+        #     f"(win_cycles={win_cycles}) (loss_cycles={loss_cycles}) " +
+        #     f"(start_sum={start_sum}) (sum_at_the_end_of_the_game={balance}) " +
+        #     f"(net_balance={balance - start_sum}) (balance_ratio={round(balance / start_sum * 100, 1)}%)"
+        # )
+        
     else:
-        strategy_fn(**config,)
-
-
-
-    # start_sum: int = base_config["start_sum"]
-    # cycles: int = 1_000
-    # sum_per_cyle: float = start_sum / cycles
-
-    # win_cycles: int = 0
-    # loss_cycles: int = 0
-    # balance: int = 0
-
-    # config["start_sum"] = sum_per_cyle
-    # for i in range(cycles):
-    #     result: float = strategy_fn(**config,)
-    #     print(f"result: {result}")
-    #     if result > 0:
-    #         win_cycles += 1
-    #         balance += result
-    #     else:
-    #         loss_cycles += 1
-    #         balance -= result
-
-    # print(
-    #     f"(win_cycles={win_cycles}) (loss_cycles={loss_cycles}) " +
-    #     f"(start_sum={start_sum}) (sum_at_the_end_of_the_game={balance}) " +
-    #     f"(net_balance={balance - start_sum}) (balance_ratio={round(balance / start_sum * 100, 1)}%)"
-    # )
+        strategy_fn(**config)
 
 
 if __name__ == "__main__":
