@@ -40,5 +40,5 @@ def random_bet(start_sum: int,
                 log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
                 return current_sum
 
-    log_end_game("End Game", current_sum, win_counters, lose_counters, log_verbose)
+    log_end_game("End Game", current_sum, win_counters, lose_counters, True)
     return current_sum
