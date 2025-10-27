@@ -20,8 +20,8 @@ def reverse_martingale(start_sum: int,
     current_sum: int = start_sum
     target_sum: float = current_sum + (current_sum / 100 * options["target_sum_start_sum_percent"])
     current_bet: int = 1
-    win_counters = Counters(0, 0, 0)
-    lose_counters = Counters(0, 0, 0)
+    win_counters: Counters = Counters(0, 0, 0)
+    lose_counters: Counters = Counters(0, 0, 0)
     cycle_count: int = 1
 
     while cycle_count <= cycles:

@@ -19,8 +19,8 @@ def random_bet(start_sum: int,
     log_strategy_header("Random Bet", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
-    win_counters = Counters(0, 0, 0)
-    lose_counters = Counters(0, 0, 0)
+    win_counters: Counters = Counters(0, 0, 0)
+    lose_counters: Counters = Counters(0, 0, 0)
 
     for cycle in range(cycles):
         log(f"Cycle: {cycle + 1}", log_verbose)
