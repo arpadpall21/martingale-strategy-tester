@@ -1,5 +1,5 @@
 """
-    Reverse Martingale Strategy:
+    Anti Martingale Strategy:
         - On Win:
             - Bet double the amount you recently win
         - On Lose:
@@ -10,12 +10,12 @@ from misc.update_counters import update_counters, Counters
 from misc.log import log, log_strategy_header, log_end_game
 
 
-def reverse_martingale(start_sum: int,
-                       success_chance_percent_each_cycle: int,
-                       cycles: int,
-                       log_verbose: bool,
-                       options: dict[str, float] = {"target_sum_start_sum_percent": 1}) -> int:
-    log_strategy_header("Reverse Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
+def anti_martingale(start_sum: int,
+                    success_chance_percent_each_cycle: int,
+                    cycles: int,
+                    log_verbose: bool,
+                    options: dict[str, float] = {"target_sum_start_sum_percent": 1}) -> int:
+    log_strategy_header("Anti Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
     target_sum: float = current_sum + (current_sum / 100 * options["target_sum_start_sum_percent"])
