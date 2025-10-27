@@ -3,7 +3,6 @@
       - On Win or Lose
           - Betting randomly while randomly changing the bet size
 """
-from typing import Any
 import random
 
 from misc.rand_success import check_success
@@ -15,12 +14,12 @@ def random_bet(start_sum: int,
                success_chance_percent_each_cycle: int,
                cycles: int,
                log_verbose: bool,
-               options: dict[str, Any] = {"bet_range": [1, 1]}) -> int:
+               options: dict[str, list[int]] = {"bet_range": [1, 1]}) -> int:
     log_strategy_header("Random Bet", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
-    win_counters = Counters(0, 0, 0)
-    lose_counters = Counters(0, 0, 0)
+    win_counters: Counters = Counters(0, 0, 0)
+    lose_counters: Counters = Counters(0, 0, 0)
 
     for cycle in range(cycles):
         log(f"Cycle: {cycle + 1}", log_verbose)
@@ -40,5 +39,5 @@ def random_bet(start_sum: int,
                 log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
                 return current_sum
 
-    log_end_game("End Game", current_sum, win_counters, lose_counters, log_verbose)
+    log_end_game("End Game", current_sum, win_counters, lose_counters, True)
     return current_sum
