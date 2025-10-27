@@ -7,12 +7,12 @@ multi_game_cycles: int | None = None
 base_config: dict[str, int | bool] = {
     "start_sum": 100,
     "success_chance_percent_each_cycle": 50,
-    "cycles": 10,
+    "cycles": 100,
     "log_verbose": True,
 }
 
 # strategy specific configuration
-strategy_config: dict[str, dict[str, bool | int | list[int]]] = {
+strategy_config: dict[str, dict[str, None | int | list[int]]] = {
     "martingale": {
         "percent_target": None
     },

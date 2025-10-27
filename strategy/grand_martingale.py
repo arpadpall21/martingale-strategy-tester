@@ -1,21 +1,21 @@
 """
-    Standard Martingale Strategy:
+    Grande Martingale Strategy:
         - On Win:
             - Bet the initial bet
         - On Lose:
-            - Bet double the amount you recently lost
+            - Bet double the amount you recently lost + extra bet (configurable (Default: 1))
 """
 from misc.rand_success import check_success
 from misc.update_counters import update_counters, Counters
 from misc.log import log, log_strategy_header, log_end_game
 
 
-def martingale(start_sum: int,
-               success_chance_percent_each_cycle: int,
-               cycles: int,
-               log_verbose: bool,
-               options: dict[str, None | int] = {"percent_target": None}) -> int:
-    log_strategy_header("Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
+def grand_martingale(start_sum: int,
+                     success_chance_percent_each_cycle: int,
+                     cycles: int,
+                     log_verbose: bool,
+                     options: dict[str, bool] = {"percent_target": None, "extra_bet": 1}) -> int:
+    log_strategy_header("Grande Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
     target_sum: int = (
@@ -40,7 +40,7 @@ def martingale(start_sum: int,
             next_bet = current_bet * 2 if current_bet * 2 < current_sum else current_sum
 
             log(f"  Lose -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
-            current_bet = next_bet
+            current_bet = next_bet + options["extra_bet"]
 
         if current_sum <= 0:
             log_end_game("You run out of cache", current_sum, win_counters, lose_counters, True)
