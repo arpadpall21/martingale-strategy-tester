@@ -3,7 +3,6 @@
       - On Win or Lose
           - Betting randomly while randomly changing the bet size
 """
-from typing import Any
 import random
 
 from misc.rand_success import check_success
@@ -15,7 +14,7 @@ def random_bet(start_sum: int,
                success_chance_percent_each_cycle: int,
                cycles: int,
                log_verbose: bool,
-               options: dict[str, Any] = {"bet_range": [1, 1]}) -> int:
+               options: dict[str, list[int]] = {"bet_range": [1, 1]}) -> int:
     log_strategy_header("Random Bet", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum

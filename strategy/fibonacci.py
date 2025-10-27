@@ -1,9 +1,9 @@
 """
     Standard Martingale Strategy:
         - On Win:
-            - TODO...
+            - bet 2nd previous fiboncacci value
         - On Lose:
-            - TODO...
+            - bet next fibonacci value
 """
 from typing import Literal
 
@@ -15,10 +15,12 @@ from misc.log import log, log_strategy_header, log_end_game
 def fibonacci(start_sum: int,
               success_chance_percent_each_cycle: int,
               cycles: int,
-              log_verbose: bool) -> int:
+              log_verbose: bool,
+              options: dict[str, int] = {"target_sum_start_sum_percent": 5}) -> int:
     log_strategy_header("Fibonacci", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
+    target_sum: float = current_sum + (current_sum / 100 * options["target_sum_start_sum_percent"])
     current_bet: int = 1
     win_counters: Counters = Counters(0, 0, 0)
     lose_counters: Counters = Counters(0, 0, 0)
@@ -41,8 +43,12 @@ def fibonacci(start_sum: int,
 
             current_bet = next_bet
             if current_sum <= 0:
-                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
+                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, True)
                 return current_sum
+
+        if current_sum >= target_sum:
+            log_end_game("Target Reached", current_sum, win_counters, lose_counters, True)
+            return current_sum
 
     log_end_game("End Game", current_sum, win_counters, lose_counters, True)
     return current_sum
@@ -54,32 +60,8 @@ def get_next_fibonacci_val(value: int, direction: Literal["next", "previous"] = 
     next_fib_val: int = n1 + n2
 
     while next_fib_val <= value:
-        n1: int = n2
+        n1 = n2
         n2 = next_fib_val
         next_fib_val = n1 + n2
 
     return next_fib_val if direction == "next" else n1
-
-
-
-
-'''
-1       
-2       3
-3       6
-5       11
-8       19 - 13      6
-13      32
-21      53 - 34      19
-34      
-55      
-89      
-144     
-233     
-377     
-610     
-987     
-1597    
-2584    
-4181    
-'''
