@@ -7,7 +7,7 @@
 """
 from misc.rand_success import check_success
 from misc.update_counters import update_counters, Counters
-from misc.log import log, log_strategy_header, log_end_game
+from misc.log import log, log_strategy_header, log_cycle_status, log_end_game
 
 
 def grand_martingale(start_sum: int,
@@ -32,14 +32,14 @@ def grand_martingale(start_sum: int,
             current_sum += current_bet
             next_bet = 1
 
-            log(f"  Win -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
+            log_cycle_status("Wind", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet if current_bet <= current_sum else current_sum
             next_bet = current_bet * 2 if current_bet * 2 < current_sum else current_sum
 
-            log(f"  Lose -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
+            log_cycle_status("Lose", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet + options["extra_bet"]
 
         if current_sum <= 0:
