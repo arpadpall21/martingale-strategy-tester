@@ -10,11 +10,10 @@ def main():
     try:
         getattr(strategy, use_strategy)
     except AttributeError:
-        print(
+        raise ValueError(
             f"Strategy not supported: {use_strategy} " +
             f"(suported strategies: {", ".join([field.name for field in fields(strategy)])})"
         )
-        return
 
     strategy_fn: StragetyFn = getattr(strategy, use_strategy)
     config: dict[str, Any] = base_config
