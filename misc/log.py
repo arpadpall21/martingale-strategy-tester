@@ -23,7 +23,7 @@ def log_cycle_status(state: Literal["Win", "Lose"],
                      current_bet: int,
                      next_bet: int,
                      log_verbose: bool) -> None:
-    log(f"  Win -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
+    log(f"  {state} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
 
 def log_end_game(reason: str,

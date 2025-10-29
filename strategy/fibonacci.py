@@ -32,14 +32,14 @@ def fibonacci(start_sum: int,
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
-            next_bet: int = get_next_fibonacci_val(get_next_fibonacci_val(current_bet, "previous"), "previous")
+            next_bet: int = _get_next_fibonacci_val(_get_next_fibonacci_val(current_bet, "previous"), "previous")
 
             log_cycle_status("Wind", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet
-            planned_next_bet: int = get_next_fibonacci_val(current_bet, "next")
+            planned_next_bet: int = _get_next_fibonacci_val(current_bet, "next")
             next_bet: int = planned_next_bet if planned_next_bet < current_sum else current_sum
 
             log_cycle_status("Lose", current_sum, current_bet, next_bet, log_verbose)
@@ -56,7 +56,7 @@ def fibonacci(start_sum: int,
     return current_sum
 
 
-def get_next_fibonacci_val(value: int, direction: Literal["next", "previous"] = "next"):
+def _get_next_fibonacci_val(value: int, direction: Literal["next", "previous"] = "next"):
     n1: int = 1
     n2: int = 1
     next_fib_val: int = n1 + n2
