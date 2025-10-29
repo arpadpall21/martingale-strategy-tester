@@ -13,7 +13,7 @@ base_config: dict[str, int | bool] = {
 }
 
 # strategy specific configuration
-strategy_config: dict[str, dict[str, None | int | list[int]]] = {
+strategy_config: dict[str, dict[str, int | list[int]]] = {
     "grand_martingale": {
         "extra_bet": 1,
     },
