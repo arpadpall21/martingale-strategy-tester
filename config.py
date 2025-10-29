@@ -1,5 +1,5 @@
 # strategy to use, (available: martingale, grand_martingale, anti_martingale, fibonacci, random_bet)
-use_strategy: str = "grand_martingale"
+use_strategy: str = "anti_martingale"
 # runs this game nr of times (with detailed reports)
 multi_game_cycles: int | None = None
 

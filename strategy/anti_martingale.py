@@ -14,13 +14,11 @@ def anti_martingale(start_sum: int,
                     success_chance_percent_each_cycle: int,
                     cycles: int,
                     log_verbose: bool,
-                    options: dict[str, None | int] = {"percent_target": None}) -> int:
+                    percent_target: None | int = None) -> int:
     log_strategy_header("Anti Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
-    target_sum: int = (
-        None if options["percent_target"] is None else start_sum + (start_sum / 100 * options["percent_target"])
-    )
+    target_sum: int = None if percent_target is None else start_sum + (start_sum / 100 * percent_target)
     current_bet: int = 1
     win_counters: Counters = Counters(0, 0, 0)
     lose_counters: Counters = Counters(0, 0, 0)
