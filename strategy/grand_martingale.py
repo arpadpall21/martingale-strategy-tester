@@ -14,13 +14,12 @@ def grand_martingale(start_sum: int,
                      success_chance_percent_each_cycle: int,
                      cycles: int,
                      log_verbose: bool,
-                     options: dict[str, bool] = {"percent_target": None, "extra_bet": 1}) -> int:
+                     percent_target: None | int = None,
+                     options: dict[str, bool] = {"extra_bet": 1}) -> int:
     log_strategy_header("Grande Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
-    target_sum: int = (
-        None if options["percent_target"] is None else start_sum + (start_sum / 100 * options["percent_target"])
-    )
+    target_sum: int = None if percent_target is None else start_sum + (start_sum / 100 * percent_target)
     current_bet: int = 1
     win_counters: Counters = Counters(0, 0, 0)
     lose_counters: Counters = Counters(0, 0, 0)
