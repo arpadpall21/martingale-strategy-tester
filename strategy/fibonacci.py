@@ -34,7 +34,7 @@ def fibonacci(start_sum: int,
             current_sum += current_bet
             next_bet: int = _get_next_fibonacci_val(_get_next_fibonacci_val(current_bet, "previous"), "previous")
 
-            log_cycle_status("Wind", current_sum, current_bet, next_bet, log_verbose)
+            log_cycle_status("Win", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)

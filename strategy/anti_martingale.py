@@ -32,7 +32,7 @@ def anti_martingale(start_sum: int,
             current_sum += current_bet
             next_bet = current_bet * 2 if current_bet * 2 < current_sum else current_sum
 
-            log_cycle_status("Wind", current_sum, current_bet, next_bet, log_verbose)
+            log_cycle_status("Win", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)

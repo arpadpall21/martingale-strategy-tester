@@ -32,7 +32,7 @@ def martingale(start_sum: int,
             current_sum += current_bet
             next_bet = 1
 
-            log_cycle_status("Wind", current_sum, current_bet, next_bet, log_verbose)
+            log_cycle_status("Win", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)
