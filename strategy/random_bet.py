@@ -14,13 +14,12 @@ def random_bet(start_sum: int,
                success_chance_percent_each_cycle: int,
                cycles: int,
                log_verbose: bool,
-               options: dict[str, list[int]] = {"bet_range": [1, 1], "percent_target": None}) -> int:
+               percent_target: None | int = None,
+               options: dict[str, list[int]] = {"bet_range": [1, 1]}) -> int:
     log_strategy_header("Random Bet", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
-    target_sum: int = (
-        None if options["percent_target"] is None else start_sum + (start_sum / 100 * options["percent_target"])
-    )
+    target_sum: int = None if percent_target is None else start_sum + (start_sum / 100 * percent_target)
     planned_start_bet: int = _get_randint(options["bet_range"])
     current_bet: int = planned_start_bet if planned_start_bet < current_sum else current_sum
     win_counters: Counters = Counters(0, 0, 0)
