@@ -7,17 +7,22 @@ import random
 
 from misc.rand_success import check_success
 from misc.update_counters import update_counters, Counters
-from misc.log import log, log_strategy_header, log_end_game
+from misc.log import log, log_strategy_header, log_cycle_status, log_end_game
 
 
 def random_bet(start_sum: int,
                success_chance_percent_each_cycle: int,
                cycles: int,
                log_verbose: bool,
-               options: dict[str, list[int]] = {"bet_range": [1, 1]}) -> int:
+               options: dict[str, list[int]] = {"bet_range": [1, 1], "percent_target": None}) -> int:
     log_strategy_header("Random Bet", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
+    target_sum: int = (
+        None if options["percent_target"] is None else start_sum + (start_sum / 100 * options["percent_target"])
+    )
+    planned_start_bet: int = _get_randint(options["bet_range"])
+    current_bet: int = planned_start_bet if planned_start_bet < current_sum else current_sum
     win_counters: Counters = Counters(0, 0, 0)
     lose_counters: Counters = Counters(0, 0, 0)
 
@@ -25,19 +30,33 @@ def random_bet(start_sum: int,
         log(f"Cycle: {cycle + 1}", log_verbose)
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
-            current_bet = random.randint(options["bet_range"][0], options["bet_range"][1])
             current_sum += current_bet
-            log(f"  Win -> current sum: {current_sum} (current bet={current_bet})", log_verbose)
+
+            planned_next_bet: int = _get_randint(options["bet_range"])
+            next_bet: int = planned_next_bet if planned_next_bet < current_sum else current_sum
+
+            log_cycle_status("win", current_sum, current_bet, next_bet, log_verbose)
+            current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)
-            planned_bet: int = random.randint(options["bet_range"][0], options["bet_range"][1])
-            current_bet: int = planned_bet if planned_bet < current_sum else current_sum
             current_sum -= current_bet
-            log(f"  Lose -> current sum: {current_sum} (current bet={current_bet})", log_verbose)
 
-            if current_sum <= 0:
-                log_end_game("You run out of cache", current_sum, win_counters, lose_counters, log_verbose)
-                return current_sum
+            planned_next_bet: int = _get_randint(options["bet_range"])
+            next_bet: int = planned_next_bet if planned_next_bet < current_sum else current_sum
+
+            log_cycle_status("lose", current_sum, current_bet, next_bet, log_verbose)
+            current_bet = next_bet
+
+        if current_sum <= 0:
+            log_end_game("You run out of cache", current_sum, win_counters, lose_counters, True)
+            return current_sum
+        if target_sum and current_sum >= target_sum:
+            log_end_game("Target Reached", current_sum, win_counters, lose_counters, True)
+            return current_sum
 
     log_end_game("End Game", current_sum, win_counters, lose_counters, True)
     return current_sum
+
+
+def _get_randint(range: list[int]) -> int:
+    return random.randint(range[0], range[1])

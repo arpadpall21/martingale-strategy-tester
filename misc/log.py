@@ -1,4 +1,5 @@
 from misc.update_counters import Counters
+from typing import Literal
 
 
 def log(txt: str, show: bool):
@@ -15,6 +16,14 @@ def log_strategy_header(strategy_name: str,
     log(f"Start Sum: {start_sum}", log_verbose)
     log(f"Success Chance Each Turn: {success_chance_percent_each_cycle}%", log_verbose)
     log(f"Planned Cycles: {cycles}\n", log_verbose)
+
+
+def log_cycle_status(state: Literal["win", "lose"],
+                     current_sum: int,
+                     current_bet: int,
+                     next_bet: int,
+                     log_verbose: bool) -> None:
+    log(f"  {state.capitalize()} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
 
 def log_end_game(reason: str,
