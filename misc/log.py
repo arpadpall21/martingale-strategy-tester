@@ -18,12 +18,12 @@ def log_strategy_header(strategy_name: str,
     log(f"Planned Cycles: {cycles}\n", log_verbose)
 
 
-def log_cycle_status(state: Literal["Win", "Lose"],
+def log_cycle_status(state: Literal["win", "lose"],
                      current_sum: int,
                      current_bet: int,
                      next_bet: int,
                      log_verbose: bool) -> None:
-    log(f"  {state} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
+    log(f"  {state.capitalize()} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
 
 
 def log_end_game(reason: str,
