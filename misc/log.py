@@ -19,10 +19,17 @@ def log_strategy_header(strategy_name: str,
 
 
 def log_cycle_status(state: Literal["win", "lose"],
-                     current_sum: int,
-                     current_bet: int,
-                     next_bet: int,
+                     current_sum: int | float,
+                     current_bet: int | float,
+                     next_bet: int | float,
                      log_verbose: bool) -> None:
+    if isinstance(current_sum, float):
+        current_sum = round(current_sum, 2)
+    if isinstance(current_bet, float):
+        current_bet = round(current_bet, 2)
+    if isinstance(next_bet, float):
+        next_bet = round(next_bet, 2)
+
     log(
         f"  {state.capitalize()} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})",
         log_verbose,
