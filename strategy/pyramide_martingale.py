@@ -42,6 +42,8 @@ def pyramide_martingale(start_sum: int,
             log_cycle_status("lose", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
 
+        if isinstance(current_sum, float):
+            current_sum = round(current_sum, 2)
         if current_sum <= 0:
             log_end_game("You run out of cache", current_sum, win_counters, lose_counters, True)
             return current_sum
@@ -49,5 +51,7 @@ def pyramide_martingale(start_sum: int,
             log_end_game("Target Reached", current_sum, win_counters, lose_counters, True)
             return current_sum
 
+    if isinstance(current_sum, float):
+        current_sum = round(current_sum, 2)
     log_end_game("End Game", current_sum, win_counters, lose_counters, True)
     return current_sum

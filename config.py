@@ -14,7 +14,7 @@ multi_game_cycles: int | None = None
 base_config: dict[str, int | bool] = {
     "start_sum": 100,
     "success_chance_percent_each_cycle": 1,
-    "cycles": 100_000,
+    "cycles": 20,
     "log_verbose": True,
     "percent_target": None,
 }
