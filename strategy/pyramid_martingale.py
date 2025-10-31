@@ -10,13 +10,13 @@ from misc.update_counters import update_counters, Counters
 from misc.log import log, log_strategy_header, log_cycle_status, log_end_game
 
 
-def pyramide_martingale(start_sum: int,
-                        success_chance_percent_each_cycle: int,
-                        cycles: int,
-                        log_verbose: bool,
-                        percent_target: None | int = None,
-                        options: dict[str, list[int]] = {"multiplier": 1.5}) -> int | float:
-    log_strategy_header("Pyramide Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
+def pyramid_martingale(start_sum: int,
+                       success_chance_percent_each_cycle: int,
+                       cycles: int,
+                       log_verbose: bool,
+                       percent_target: None | int = None,
+                       options: dict[str, list[int]] = {"multiplier": 1.5}) -> int | float:
+    log_strategy_header("Pyramid Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
     target_sum: int = None if percent_target is None else start_sum + (start_sum / 100 * percent_target)
