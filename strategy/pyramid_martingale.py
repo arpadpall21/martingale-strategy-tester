@@ -1,7 +1,7 @@
 """
-    Random Strategy:
+    Pyramid Strategy:
         - On Win
-            - TODO...
+            - Bet the initial bet
         - On Lose
             - Bet multiplier times the amount you recently lost
 """
