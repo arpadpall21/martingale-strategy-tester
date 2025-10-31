@@ -23,7 +23,7 @@ def main():
     if multi_game_cycles and multi_game_cycles > 0:
         win_cycles: int = 0
         loss_cycles: int = 0
-        balance: int = 0
+        balance: int | float = 0
 
         for game_id in range(multi_game_cycles):
             result: float = strategy_fn(**config)

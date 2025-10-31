@@ -8,12 +8,12 @@
         - random_bet
 """
 use_strategy: str = "pyramid_martingale"
-multi_game_cycles: int | None = None
+multi_game_cycles: int | None = 100
 
 # base configurations
 base_config: dict[str, int | bool] = {
     "start_sum": 100,
-    "success_chance_percent_each_cycle": 50,
+    "success_chance_percent_each_cycle": 55,
     "cycles": 100,
     "log_verbose": True,
     "percent_target": None,
