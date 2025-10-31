@@ -19,11 +19,21 @@ def log_strategy_header(strategy_name: str,
 
 
 def log_cycle_status(state: Literal["win", "lose"],
-                     current_sum: int,
-                     current_bet: int,
-                     next_bet: int,
+                     current_sum: int | float,
+                     current_bet: int | float,
+                     next_bet: int | float,
                      log_verbose: bool) -> None:
-    log(f"  {state.capitalize()} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})", log_verbose)
+    if isinstance(current_sum, float):
+        current_sum = round(current_sum, 2)
+    if isinstance(current_bet, float):
+        current_bet = round(current_bet, 2)
+    if isinstance(next_bet, float):
+        next_bet = round(next_bet, 2)
+
+    log(
+        f"  {state.capitalize()} -> current sum: {current_sum} (current bet={current_bet}) (next bet={next_bet})",
+        log_verbose,
+    )
 
 
 def log_end_game(reason: str,
@@ -43,15 +53,21 @@ def log_multi_game(base_config: dict[str, int | bool],
                    multi_game_cycles: int,
                    win_cycles: int,
                    loss_cycles: int,
-                   balance: int,
+                   balance: int | float,
                    ):
     initial_start_sum: int = base_config["start_sum"]
     total_start_sum: int = initial_start_sum * multi_game_cycles
+    total_net_balance: int | float = balance - total_start_sum
+
+    if isinstance(balance, float):
+        balance = round(balance, 2)
+    if isinstance(total_net_balance, float):
+        total_net_balance = round(total_net_balance, 2)
 
     print(
         f"Multi Game Report: (nr of games played={multi_game_cycles})"
         f"(initial start sum={initial_start_sum}) (total start sum={total_start_sum})"
         f"(win cycles={win_cycles}) (loss cycles={loss_cycles}) " +
-        f"(total sum at the end of games={balance}) (total net balance={balance - total_start_sum}) " +
+        f"(total sum at the end of games={balance}) (total net balance={total_net_balance}) " +
         f"(total balance ratio={round(balance / total_start_sum * 100, 1)}%)"
     )

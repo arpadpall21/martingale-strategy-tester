@@ -1,6 +1,13 @@
-# strategy to use, (available: martingale, grand_martingale, anti_martingale, fibonacci, random_bet)
+"""
+    Available Strategies:
+        - martingale
+        - grand_martingale
+        - anti_martingale
+        - fibonacci
+        - pyramid_martingale
+        - random_bet
+"""
 use_strategy: str = "martingale"
-# runs this game nr of times (with detailed reports)
 multi_game_cycles: int | None = None
 
 # base configurations
@@ -13,9 +20,12 @@ base_config: dict[str, int | bool] = {
 }
 
 # strategy specific configuration
-strategy_config: dict[str, dict[str, int | list[int]]] = {
+strategy_config: dict[str, dict[str, int | float | list[int]]] = {
     "grand_martingale": {
         "extra_bet": 1,
+    },
+    "pyramid_martingale": {
+        "multiplier": 1.5,
     },
     "random_bet": {
         "bet_range": [1, 3]

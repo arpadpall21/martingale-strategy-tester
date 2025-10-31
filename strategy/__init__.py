@@ -4,8 +4,9 @@ from typing import Callable, Any, Optional
 from strategy.martingale import martingale
 from strategy.anti_martingale import anti_martingale
 from strategy.grand_martingale import grand_martingale
-from strategy.random_bet import random_bet
 from strategy.fibonacci import fibonacci
+from strategy.pyramid_martingale import pyramid_martingale
+from strategy.random_bet import random_bet
 
 type StragetyFn = Callable[[int, int, int, bool, Optional[dict[str, Any]]], int]
 
@@ -15,14 +16,16 @@ class Strategy():
     martingale: StragetyFn
     grand_martingale: StragetyFn
     random_bet: StragetyFn
-    anti_martingale: StragetyFn
     fibonacci: StragetyFn
+    pyramid_martingale: StragetyFn
+    anti_martingale: StragetyFn
 
 
 strategy = Strategy(
     martingale=martingale,
     grand_martingale=grand_martingale,
     anti_martingale=anti_martingale,
-    random_bet=random_bet,
     fibonacci=fibonacci,
+    pyramid_martingale=pyramid_martingale,
+    random_bet=random_bet,
 )
