@@ -8,15 +8,15 @@
         - random_bet
 """
 use_strategy: str = "martingale"
-multi_game_cycles: int | None = 10
+multi_game_cycles: int | None = None
 
 # base configurations
 base_config: dict[str, int | bool] = {
     "start_sum": 100,
-    "success_chance_percent_each_cycle": 47,
+    "success_chance_percent_each_cycle": 50,
     "cycles": 10,
     "log_verbose": True,
-    "percent_target": 100,
+    "percent_target": None,
 }
 
 # strategy specific configuration
@@ -25,7 +25,7 @@ strategy_config: dict[str, dict[str, int | float | list[int]]] = {
         "extra_bet": 1,
     },
     "pyramid_martingale": {
-        "multiplier": 2,
+        "multiplier": 1.5,
     },
     "random_bet": {
         "bet_range": [1, 3]
