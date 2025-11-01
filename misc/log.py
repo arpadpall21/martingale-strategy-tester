@@ -40,7 +40,22 @@ def log_end_game(reason: str,
                  current_sum: int,
                  win_counters: Counters,
                  lose_counters: Counters,
+                 color: Literal["green", "red", "yellow"],
                  log_verbose: bool) -> None:
+    colors = {
+        "green": "\x1b[32m",
+        "red": "\x1b[31m",
+        "yellow": "\x1b[33m",
+    }
+
+    if colors.get(color):
+        log(
+            f"{colors[color]}{reason} -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
+            f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
+            f"(max lose streak count={lose_counters.max_streak})\033[0m",
+            log_verbose
+        )
+        return
     log(
         f"{reason} -> current sum: {current_sum} (win cycle count={win_counters.cycle}) " +
         f"(lose cycle count={lose_counters.cycle}) (max win streak count={win_counters.max_streak}) " +
