@@ -80,9 +80,9 @@ def log_multi_game(base_config: dict[str, int | bool],
         total_net_balance = round(total_net_balance, 2)
 
     print(
-        f"Multi Game Report: (nr of games played={multi_game_cycles})"
+        f"\x1b[35mMulti Game Report: (nr of games played={multi_game_cycles})"
         f"(initial start sum={initial_start_sum}) (total start sum={total_start_sum})"
         f"(win cycles={win_cycles}) (loss cycles={loss_cycles}) " +
         f"(total sum at the end of games={balance}) (total net balance={total_net_balance}) " +
-        f"(total balance ratio={round(balance / total_start_sum * 100, 1)}%)"
+        f"(total balance ratio={round(balance / total_start_sum * 100, 1)}%)\033[0m"
     )

@@ -8,7 +8,7 @@
         - random_bet
 """
 use_strategy: str = "martingale"
-multi_game_cycles: int | None = None
+multi_game_cycles: int | None = 10
 
 # base configurations
 base_config: dict[str, int | bool] = {
