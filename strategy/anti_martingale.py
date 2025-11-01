@@ -41,11 +41,11 @@ def anti_martingale(start_sum: int,
             current_bet = next_bet
 
         if current_sum <= 0:
-            log_end_game("You run out of cache", current_sum, win_counters, lose_counters, True)
+            log_end_game("You run out of cache", current_sum, win_counters, lose_counters, "red", True)
             return current_sum
         if target_sum and current_sum >= target_sum:
-            log_end_game("Target Reached", current_sum, win_counters, lose_counters, True)
+            log_end_game("Target Reached", current_sum, win_counters, lose_counters, "green", True)
             return current_sum
 
-    log_end_game("End Game", current_sum, win_counters, lose_counters, True)
+    log_end_game("End Game", current_sum, win_counters, lose_counters, "yellow", True)
     return current_sum
