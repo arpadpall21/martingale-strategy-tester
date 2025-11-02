@@ -29,17 +29,18 @@ def grand_martingale(start_sum: int,
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
-            next_bet = 1
+            next_bet: int = 1
 
             log_cycle_status("win", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet if current_bet <= current_sum else current_sum
-            next_bet = current_bet * 2 if current_bet * 2 < current_sum else current_sum
+            planned_next_bet: int = current_bet * 2 + options["extra_bet"]
+            next_bet: int = planned_next_bet if planned_next_bet < current_sum else current_sum
 
             log_cycle_status("lose", current_sum, current_bet, next_bet, log_verbose)
-            current_bet = next_bet + options["extra_bet"]
+            current_bet = next_bet
 
         if current_sum <= 0:
             log_end_game("You run out of cache", current_sum, win_counters, lose_counters, "red", True)
