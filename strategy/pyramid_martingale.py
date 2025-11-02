@@ -37,7 +37,7 @@ def pyramid_martingale(start_sum: int,
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet
             planned_next_bet: float = current_bet * options["multiplier"]
-            next_bet: int = planned_next_bet if planned_next_bet < current_sum else current_sum
+            next_bet: float = planned_next_bet if planned_next_bet < current_sum else current_sum
 
             log_cycle_status("lose", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet

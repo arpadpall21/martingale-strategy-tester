@@ -7,7 +7,7 @@
         - pyramid_martingale
         - random_bet
 """
-use_strategy: str = "martingale"
+use_strategy: str = "grand_martingale"
 multi_game_cycles: int | None = None
 
 # base configurations
