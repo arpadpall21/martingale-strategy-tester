@@ -1,7 +1,7 @@
 """
     Anti Martingale Strategy:
         - On Win:
-            - Bet double the amount you recently win
+            - Bet double the amount you recently win untill the current set start sum reached (then restart)
         - On Lose:
             - Bet the initial bet
 """
@@ -18,6 +18,7 @@ def anti_martingale(start_sum: int,
     log_strategy_header("Anti Martingale", start_sum, success_chance_percent_each_cycle, cycles, log_verbose)
 
     current_sum: int = start_sum
+    current_target: int = start_sum
     target_sum: int = None if percent_target is None else start_sum + (start_sum / 100 * percent_target)
     current_bet: int = 1
     win_counters: Counters = Counters(0, 0, 0)
@@ -28,14 +29,19 @@ def anti_martingale(start_sum: int,
         if check_success(success_chance_percent_each_cycle):
             update_counters("win", win_counters, lose_counters)
             current_sum += current_bet
-            next_bet = current_bet * 2 if current_bet * 2 < current_sum else current_sum
+
+            if current_sum >= current_target:
+                next_bet: int = 1
+                current_target = current_sum
+            else:
+                next_bet: int = current_bet * 2 if current_bet * 2 < current_sum else current_sum
 
             log_cycle_status("win", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
         else:
             update_counters("lose", win_counters, lose_counters)
             current_sum -= current_bet if current_bet <= current_sum else current_sum
-            next_bet = 1
+            next_bet: int = 1
 
             log_cycle_status("lose", current_sum, current_bet, next_bet, log_verbose)
             current_bet = next_bet
